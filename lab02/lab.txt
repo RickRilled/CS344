@@ -1,0 +1,6 @@
+2.1
+a)Each algorithm solves the problem with relative ease. It seems to do so at the same values with the same effectivness.
+b)Simulated annealing(SA), with hill climbing at 3.743 and SA at 0.0049
+c)Yes, a higher x value increases the time each algorithm takes. Also, at high values like 500, hill climbing is the faster option. 
+d)When I increase it, it seems to decrease the time for hill climbing with minimal affect to SA. 
+e)It controls values like temperature, 
