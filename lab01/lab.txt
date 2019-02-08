@@ -1,0 +1,7 @@
+1.1
+	C)
+		i)the GPS is a series of functions that are tied to pgs.py, probably to be imported and have it's functions used when needed by the problem. This leads me to believe it is implimented as a class.
+		ii) These states and operators are string
+		iii)No, because it does not call the same function it is currenly working in
+
+	E) 
