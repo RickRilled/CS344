@@ -1,6 +1,29 @@
 2.1
-a)Each algorithm solves the problem with relative ease. It seems to do so at the same values with the same effectivness.
+a)Each algorithm solves the problem with relative ease. It seems to do so at the same values with the same effectiveness.
 b)Simulated annealing(SA), with hill climbing at 3.743 and SA at 0.0049
 c)Yes, a higher x value increases the time each algorithm takes. Also, at high values like 500, hill climbing is the faster option. 
-d)When I increase it, it seems to decrease the time for hill climbing with minimal affect to SA. 
-e)It controls values like temperature, 
+d)When I increase it, it seems to decrease the time for hill climbing with minimal effect to SA. 
+e)It controls values like temperature, threshold, and how much information to print.
+
+2.2
+a)As expected, SA gets the more random seeming answers, ranging from the very good 29.8 to the disgusting -17. Hill climbing continues to be mediocre at best, but not as terrible.
+b)Not particularly. Each one gets close but remains either very off or only a little off. High values do not show any major changes in the time it takes to solve between the two of them. They grow at a similar pase. 
+c) Yes, the values for SA are even more wild and wacky. This might be because it is making more wild guesses with a higher step. Even when it is in the right area, it makes a huge jump out of that local max to a possibly worse answer. 
+d) I have my maximum set to 30, so the max is 30 and minimum 0. Hill climbing gets the closest most consistently, while SA has a higher chance of getting the actual maximum.
+
+2.3
+a) For ABS, each algorithm performs the same, which is to be expected. It's a simple problem without much variation. In the Sine function, however, SA sees a massive improvement by running an average of its most sporadic answers. This makes a lot of sense. If we take enough wacky guesses, using the good and the bad ones will get us a general idea of what the actual value is. This is exactly what SA does, but now on a slightly bigger scale with more information. This can only help it find the value. 
+b) 
+ABS:
+Hill Climbing - 250.0
+SA - 250
+Sine:
+Hill Climbing - 21.733
+SA - 51.222
+c) See my explanation in part "a"
+
+2.4
+a) It makes the most sense for SA, since it would give it more direction in it's random selections. Beam search would pick the best relative guess and move SA closer to the right value. 
+b) Some relatively astronomical number, since we can adjust the value of the max to whatever our computer can contain.
+c) I would add the collection of states during each search, then let beam search choose which one would be best to follow. I could then go back to the original search and have it continue to generate the next node. 
+
