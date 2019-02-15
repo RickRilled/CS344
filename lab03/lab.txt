@@ -1,0 +1,13 @@
+3.1
+a)Each one finished the solved puzzle. depth-first-search took a large amount of time to fail on the easy problem. AC3 fails on the harder problem. Backtracking fails on the hardest problem. 
+b)Combining the mrv function with forward_checking created the best result, as it solved the hardest problem almost instantly. Forward_checking allows the function to check neighbor values and choose the best one for the next step.
+
+3.2
+a)n can get very large for min_conflicts, up to 10,000. Backtracking stops being great at around 30. AC3 failed on a regular basis.
+b)Using the mrv function and forward checking provide the best results. 
+c)The search can have higher max steps if n is not too high. They are inversely related.
+
+3.3
+a)CSP creates a map from the actions to the domains. Problem accepts what it is given and works with that more freely, assuming it has no constraints. The goal test in CSP is closely related to the constraints. 
+b)The heuristics of CSP are based closely on the constraints. If the constraints are not satisfied, nconflicts essentially stops the solution from being passed. The traditional search uses random guesses to work towards a solution without any constraints.  
+
