@@ -1,0 +1,16 @@
+4.3
+
+a)
+
+i. P(User) = 0.089
+
+ii. P(test | user) = P(test * user)/P(user) = (0.99 * 0.089)/0.089 = 0.99
+
+iii. P(-test | user) = P(-test * user)/P(user) = (0.01 * 0.089)/0.089 = 0.01
+
+iv. P(test | -user) = P(test * -user)/P(-user) = (0.02 * .919)/.919 = 0.02
+
+v. P(User | test) = P(user * test)/P(test) = (0.089 * .99)/0.10649 = 0.82
+
+b)
+
