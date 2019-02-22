@@ -20,55 +20,90 @@ class TSP(Problem):
 
     def __init__(self, numCities):
         self.numCities = numCities
+        self.citiesDistances = []
+        self.distances = []
+        self.distancesMatrix = []
+
+        self.initial = []
+
+        for x in range(0, numCities):
+            self.initial.append(x)
+
+        """
+        This was the best way I found to create a bunch of random distance values that was guaranteed to have
+        enough values for each city
+        """
+
+        decrement = 1
+        for city in range(numCities):
+            for paths in range(numCities - decrement):
+                value = randrange(25, 100)
+                self.distances.append(value)
+            decrement += 1
+
+
+        for city in range(0, numCities):
+            cityArray = []
+            for x in range(0, numCities ):
+                cityArray.append(self.distances[randrange(0, len(self.distances))])
+            self.distancesMatrix.append(cityArray)
+
+
+
+        for x in range(0, numCities):
+            for city in range(0, numCities):
+                self.distancesMatrix[x][city] = self.distancesMatrix[city][x]
 
     def actions(self, state):
-        return [state + 1]
+        idea_list = []
 
-    def result(self, stateIgnored, x):
-        return x
+        for x in range(0, self.numCities):
+            for y in range(0, self.numCities):
+                if(x != y):
+                    idea = [x, y]
+                    idea_list.append(idea)
+        return idea_list
 
-    def value(self, x):
-        #return the path it takes
+    def result(self, state, action):
+        state_copy = state[:]
+        temp_state = state_copy[action[0]]
+        state_copy[action[0]] = state_copy[action[1]]
+        state_copy[action[1]] = temp_state
+        return state_copy
+
+
+    def value(self, state):
+        sum = 0
+
+        for x in range(0, len(state)):
+            cityA = state[x]
+            cityB = state[(x + 1) % len(state)]
+            sum += self.distancesMatrix[cityA][cityB]
+        maxDistance = 100 * numCities
+        sum = maxDistance - sum
+        return sum
 
 
 if __name__ == '__main__':
 
-    cities = []
-    distances = []
-    numCities = 5
-
-
-    """
-    This was the best way I found to create a bunch of random distance values that was guaranteed to have
-    enough values for each city
-    """
-    CD0 = 1
-
-    for city in range(numCities):
-        for paths in range(numCities - CD0):
-            value = randrange(25, 100)
-            distances.append(value)
-        CD0 += 1
-
-    CD1 = 1
-
-    for city in range(numCities):
-        for x in range(numCities - CD1):
-            cities.append(str(city) + " " + str(distances[randrange(0, len(distances))]))
-        CD1 += 1
+    numCities = 25
 
     p = TSP(numCities)
-    print('Initial                      x: ' + str(p.initial)
-          + '\t\tvalue: ' + str(p.value(initial))
-          )
 
-    # Solve the problem using hill-climbing.
+    #Solve the problem using hill-climbing.
     hill_solution = hill_climbing(p)
-    print('Hill-climbing solution       x: ' + str(hill_solution)
-          + '\tvalue: ' + str(p.value(hill_solution))
-          )
+    print(str(hill_solution))
+    print(p.value(hill_solution))
 
-    # print(distances, cities)
+    #Solve the problem with SA
+    annealing_solution = simulated_annealing(
+        p,
+        exp_schedule(k=20, lam=0.005, limit=1000)
+    )
+    print(str(annealing_solution))
+    print(p.value(annealing_solution))
+
+
 
 
 
