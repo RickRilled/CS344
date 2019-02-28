@@ -53,7 +53,7 @@ def scheduler():
 
 
 print(backtracking_search(scheduler()))
-print(AC3(scheduler()))
+#print(AC3(scheduler()))
 print(min_conflicts(scheduler()))
 
 
