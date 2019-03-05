@@ -51,6 +51,12 @@ for word in spamWords:
 probs = {}
 
 
+"""
+TODO
+1)Solve lambda function
+2)Populate probs hash with words and their prop of being evil
+"""
+
 def getprob(wordInQuestion):
     g = 2 * goodHash[wordInQuestion] or 0
     b = badHash[wordInQuestion] or 0
@@ -67,10 +73,10 @@ def getprob(wordInQuestion):
 
 
 
-# print(spamWords)
-# print(hamWords)
-# print(goodHash)
-# print(badHash)
+print(spamWords)
+print(hamWords)
+print(goodHash)
+print(badHash)
 
 
 
