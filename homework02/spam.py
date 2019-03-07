@@ -11,8 +11,27 @@ ham_corpus = [["do", "i", "like", "green", "eggs", "and", "ham"], ["i", "do"]]
 ngood = len(spam_corpus)
 nbad = len(ham_corpus)
 
-emailContents = []
+emailContents = ["save", "on", "green", "eggs", "and", "spam", "do", "you", "like", "spam", "80", "$", "off", "click",
+                 "here"]
 
+
+
+def getprob(wordInQuestion):
+
+    try:
+        g = (2 * goodHash[wordInQuestion])
+    except KeyError:
+        g = 0
+
+    try:
+        b = badHash[wordInQuestion]
+    except KeyError:
+        b = 0
+
+    if g + b > 1:
+        return max(0.01, min(0.99, min(1.0, b/nbad) / (min(1.0, g/ngood) + min(1.0, b/nbad))))
+    else:
+        return 0
 
 """
 Big thank you to Alex Martelli on StackOverflow
@@ -51,13 +70,13 @@ for word in spamWords:
 probs = {}
 
 
-def getprob(wordInQuestion):
-    g = 2 * goodHash[wordInQuestion] or 0
-    b = badHash[wordInQuestion] or 0
-    if g + b > 1:
-        return max(0.01, min(0.99, min(1.0, b/nbad) / (min(1.0, g/ngood) + min(1.0, b/nbad))))
-    else:
-        return 0
+for word in goodHash:
+    probs[word] = getprob(word)
+
+for word in badHash:
+    probs[word] = getprob(word)
+
+
 
 # def function2():
 #     prod = 1
@@ -67,10 +86,11 @@ def getprob(wordInQuestion):
 
 
 
-# print(spamWords)
-# print(hamWords)
-# print(goodHash)
-# print(badHash)
+print(spamWords)
+print(hamWords)
+print(goodHash)
+print(badHash)
+print(probs)
 
 
 
