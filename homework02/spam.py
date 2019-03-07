@@ -33,7 +33,7 @@ def getprob(wordInQuestion):
     else:
         return 0
 
-def function2(li):
+def isSpam(li):
 
     #Find prod
     prod = 1
@@ -125,4 +125,4 @@ print("A higher number means spam, a lower number means ham.")
 print("The probability of these words being spam, based on the spam and ham corpus, are:", "\n", hashTotal)
 # print(probsTemp)
 # print(probs)
-print("The probability of the email, gives the contents of emailContents, is spam, is: ", function2(probs))
+print("The probability of the email, gives the contents of emailContents, is spam, is: ", isSpam(probs))
