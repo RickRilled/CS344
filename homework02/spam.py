@@ -28,7 +28,7 @@ def getprob(wordInQuestion):
         b = 0
 
     #Computer the possibility of spam
-    if g + b > 1:
+    if g + b > 0:
         return max(0.01, min(0.99, min(1.0, b/nbad) / (min(1.0, g/ngood) + min(1.0, b/nbad))))
     else:
         return 0
@@ -120,6 +120,9 @@ for word in emailContents:
 for key in probsTemp:
     if probsTemp[key] != 0:
         probs.append(probsTemp[key])
+
+
+
 
 print("A higher number means spam, a lower number means ham.")
 print("The probability of these words being spam, based on the spam and ham corpus, are:", "\n", hashTotal)
