@@ -1,0 +1,37 @@
+Framing
+--------------------------------------------------------------------------------------
+We want the machine learned model to:
+    Determine if a Gmail email is important.
+
+Our ideal outcome is:
+    Each email we send the model will be correctly labeled as "important" or "not important"
+
+Our success metrics are:
+    All important emails are labeled correctly.
+
+Our key results (KR) for the success metrics are:
+    The number of emails that should be labeled as important .
+
+The output from our ML model will be:
+    A set of important emails.
+
+The output is defined as:
+    every email included in the output set should be an important email
+
+The output from the ML model will be made:
+    Incrementally as emails are added to the set, until the test data is fully tested. It will be presented to the user by marking the email with a distinguishing image and placing it in the users inbox.
+
+The outcome will be used for:
+    New emails entering the users inbox.
+
+If we didn't use ML, we would:
+    Use a set of words or a corpus that we might nd in an important/non important email, create a hash table of probabilities, then scan the new email through these probabilities and determine, using Bayesian metrics, if it is important.
+
+Formulating
+--------------------------------------------------------------------------------------
+
+Binary Classification, which predicts what 2 labels to assign some object.
+
+Using emails are input, we must label them as important and not important, depending on the data in the email.
+
+Input 1: Subject | input 2: contents | input 3: sender | output: label
