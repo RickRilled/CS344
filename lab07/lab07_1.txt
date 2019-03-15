@@ -1,0 +1,13 @@
+7.1
+
+a)  i. cities['Is wide and has saint name'] = (cities['Area square miles'] > 50) & cities['City name'].apply(lambda name: name.startswith('San'))
+    ii. cities.reindex([-1, 0, 2])
+
+b) Pandas provides comprehensive data analysis that is easy to call, and data that is easy to add/delete/manipulate. Using
+this and NumPy functions allows for more flexibility and strength. It is also easy to add series/data and put it in a dataframe.
+
+c) If you would like to randomize data, say to display housing information in no particular order to avoid bias, then reindexing
+is a great tool.
+
+
+

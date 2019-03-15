@@ -1,0 +1,20 @@
+7.2
+
+a) Categorical data can be label with words and terms, like color or style. Numerical is represented as some kind of number.
+
+b) train_model(
+    learning_rate=0.00005,
+    steps=250,
+    batch_size=3
+)
+
+This worked really well. At period 09, I got an RMSE value of 166.39
+
+train_model(
+    learning_rate=0.00005,
+    steps=1000,
+    batch_size=5,
+    input_feature="population"
+)
+
+This actually had better RMSE values before the 9th period. The best value was 175.92.
