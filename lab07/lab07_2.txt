@@ -18,3 +18,11 @@ train_model(
 )
 
 This actually had better RMSE values before the 9th period. The best value was 175.92.
+
+
+c)  The hyperparameters are as follows:
+    learning_rate
+    steps
+    batch_size
+    These values are largly data dependant, meaning no, there is no rule when trying to tweak the hyperparamters.
+    It is dependant on your data.

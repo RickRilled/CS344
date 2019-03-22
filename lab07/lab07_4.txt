@@ -1,0 +1,49 @@
+a) T1 - There are a few extreme values for median_house_value and rooms_per_person, which tells me
+the data is not 100% trustworthy.
+
+    T2 - The validation data is way more compact than the training data, which leads me to believe that
+    our data from task 1 was not split correctly, between training and validation. We should really reindex.
+
+    T3 - Adding the code to randomize the data is wildly important, as that almost completely solves that
+    problem. Now our two data sets look much similar.
+
+    T4 -
+     training_input_fn = lambda: my_input_fn(
+      training_examples,
+      training_targets["median_house_value"],
+      batch_size=batch_size)
+  predict_training_input_fn = lambda: my_input_fn(
+      training_examples,
+      training_targets["median_house_value"],
+      num_epochs=1,
+      shuffle=False)
+  predict_validation_input_fn = lambda: my_input_fn(
+      validation_examples, validation_targets["median_house_value"],
+      num_epochs=1,
+      shuffle=False)
+
+   T5 -
+   test_examples = preprocess_features(california_housing_test_data)
+   test_targets = preprocess_targets(california_housing_test_data)
+
+    predict_test_input_fn = lambda: my_input_fn(
+      test_examples,
+      test_targets["median_house_value"],
+      num_epochs=1,
+      shuffle=False)
+
+    test_predictions = linear_regressor.predict(input_fn=predict_test_input_fn)
+    test_predictions = np.array([item['predictions'][0] for item in test_predictions])
+
+    root_mean_squared_error = math.sqrt(
+        metrics.mean_squared_error(test_predictions, test_targets))
+
+    print("Final RMSE (on test data): %0.2f" % root_mean_squared_error)
+
+
+
+b) I learned that training data is best when you have a large sample of reindex examples. The wya you define your training,
+what featuers you use, and what values you are aiming to achieve can drastically affect your model, more so
+than the hyperparameters, which are really more for tweaking. The validation  set and training set are similar,
+but the validation is more of a sanity check used to tweak the hyperparameters. Testing data is an unbiased new set
+of data that does not lie about how the data did, represented in the RMSE value.
