@@ -26,19 +26,27 @@ tf.logging.set_verbosity(tf.logging.ERROR)
 pd.options.display.max_rows = 10
 pd.options.display.float_format = '{:.1f}'.format
 
-boston_housing_dataframe = pd.read_csv()
-
+boston_housing_dataframe = pd.read_csv("https://raw.githubusercontent.com/selva86/datasets/master/BostonHousing.csv")
 boston_housing_dataframe = boston_housing_dataframe.reindex(np.random.permutation(boston_housing_dataframe.index))
+
+print(boston_housing_dataframe.shape)
+print(boston_housing_dataframe.head())
 
 def preprocess_features(boston_housing_dataframe):
     selected_features = boston_housing_dataframe[
-        ["latitude",
-         "longitude",
-         "housing_median_age",
-         "total_rooms",
-         "population",
-         "households",
-         "median_income"
+        ["crim",
+         "zn",
+         "indus",
+         "chas",
+         "nox",
+         "rm",
+         "age",
+         "dis",
+         "rad",
+         "tax",
+         "ptratio",
+         "b",
+         "lstat"
         ]]
     processed_features = selected_features.copy()
     return processed_features
@@ -46,6 +54,15 @@ def preprocess_features(boston_housing_dataframe):
 
 def preprocess_targets(boston_housing_dataframe):
     output_targets = pd.DataFrame()
-    output_targets["median_house_value"] = (boston_housing_dataframe["median_house_value"]/1000)
+    output_targets["medv"] = (boston_housing_dataframe["medv"]/1000)
     return output_targets
 
+
+training_ex = preprocess_features(boston_housing_dataframe.head(400))
+training_targets = preprocess_targets(boston_housing_dataframe.head(400))
+
+print(training_ex.shape)
+print(training_targets.shape)
+
+validation_ex = preprocess_features(boston_housing_dataframe.tail(106))
+validation_targets = preprocess_targets(boston_housing_dataframe.tail(106))
