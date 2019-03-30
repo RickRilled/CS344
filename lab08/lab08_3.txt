@@ -1,0 +1,12 @@
+a. Seaborn is built on top of matplotlib, like keras is built on top of tensor flow. It provides additional types of plots
+for more detailed data description.
+
+b. There are 397 rows, which seems like the right amount to be training on to get a strong model, without over fitting.
+
+c. Normalizing the data means putting all the data on the same scale. This way we can compare data points accurately, without
+misrepresenting some data as more or less important.
+
+d. Yes, it it uses input data to make a prediction on multiple variables.
+
+e. Yes, a large network means more complexity. This is good for a complex problem with many dimensions, but not for small datasets.
+Complexity with small data spells over fitting. Keeping the model small, in conjunction with the data, is best for that application.

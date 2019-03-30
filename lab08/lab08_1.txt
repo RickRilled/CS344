@@ -1,0 +1,30 @@
+a.  The pearson correlation coefficient measures what affect different features have on one another. A negative value means negative
+correlation, and a positive value means positive correlation. The features selected, "longitude" and "latitude", provide a -0.9 coefficient,
+meaning almost perfect negative correlation. This makes sense, as the two values are basically inverts of each other.
+
+b.
+
+Task 1-
+
+minimal_features = [
+  "median_income",
+  "latitude",
+]
+
+Task 2-
+
+for r in LATITUDE_RANGES:
+    selected_examples["latitude_%d_to_%d" % r] = source_df["latitude"].apply(
+      lambda l: 1.0 if l >= r[0] and l < r[1] else 0.0)
+
+
+_ = train_model(
+    learning_rate=0.05,
+    steps=500,
+    batch_size=5,
+    training_examples=selected_training_examples,
+    training_targets=training_targets,
+    validation_examples=selected_validation_examples,
+    validation_targets=validation_targets)
+
+    RMSE: 83.96
