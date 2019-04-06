@@ -1,0 +1,12 @@
+a. It did decently well, at a value of 0.45, but that was very consistant, meaning it does not
+do a great job of catchting the subtle changes and coming up with a predictive out put.
+
+b.  L2 does not notice the difference between 0.9 and 0.9999, which is a huge difference in confidence. LogLoss
+does a better job of taking confidence into account. It also penalizes the errors in confidence.
+
+c. It comes to the conclusion that pretty much every house is high income, because it outputs above 0.5
+This is only marginally better than the linear model, which guessed they were all lower.
+
+d.  I used a learning rate of 0.0000025, steps 25000, and a batch size of 700. The best value I got was 0.79 for the AUC and 0.72
+for accuracy
+

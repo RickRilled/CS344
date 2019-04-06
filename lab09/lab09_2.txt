@@ -1,0 +1,8 @@
+a. We are trying to make the model more efficient, so we use regularization, with respect to sparsity. This
+moves weights in the model to zero, so it runs faster.
+
+b. L1 determines when a feature is not needed and moves the weight to zero. This helps to underfit
+the model and increase sparsity.
+
+c.  period 06 : 0.25
+    regularization_strength=0.7

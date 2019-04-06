@@ -1,0 +1,25 @@
+Exercise 1
+
+a. 1000 training examples and 500 validation examples
+
+b. It is similar in structure to the one we did in class.
+
+c. There is a sharp contrast in what the model sees when the background cahnges. For example, the outline of the cat is strong,
+since it is being compared to the background.
+
+Exercise 2
+
+a.  Adjusting the data to create, essentially, new training data from the existing set. This helps
+prevent overfitting and allows the model to generalize.
+
+b.
+
+history = model.fit_generator(
+      train_generator,
+      steps_per_epoch=100,
+      epochs=30,
+      validation_data=validation_generator,
+      validation_steps=50,
+      verbose=2)
+
+      Accuracy: 74%
