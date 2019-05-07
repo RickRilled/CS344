@@ -1,16 +1,13 @@
 from keras import layers
-from keras.preprocessing.text import Tokenizer
-from keras.preprocessing.sequence import pad_sequences
 import keras
 import numpy as np
 import random
 import sys
-import os
 
-text = open("Scripts/comedic.txt", "r").read().lower()
+text = open("Scripts/newComedy.txt", "r").read().lower()
 print(len(text))
 
-maxlen = 60
+maxlen = 100
 
 step = 3
 
@@ -43,7 +40,7 @@ model = keras.models.Sequential()
 model.add(layers.LSTM(128, input_shape=(maxlen, len(chars))))
 model.add(layers.Dense(len(chars), activation='softmax'))
 
-optimizer = keras.optimizers.Adagrad(lr=0.01, clipnorm=1.)
+optimizer = keras.optimizers.RMSprop(lr=0.01, clipnorm=1.)
 model.compile(loss='categorical_crossentropy', optimizer=optimizer)
 
 def sample(preds, temperature=1.0):
@@ -54,7 +51,7 @@ def sample(preds, temperature=1.0):
     probas = np.random.multinomial(1, preds, 1)
     return np.argmax(probas)
 
-for epoch in range(1, 15):
+for epoch in range(1, 60):
     print('epoch', epoch)
     # Fit the model for 1 epoch on the available training data
     model.fit(x, y,
@@ -71,7 +68,7 @@ for epoch in range(1, 15):
         sys.stdout.write(generated_text)
 
         # We generate 400 characters
-        for i in range(1500):
+        for i in range(5000):
             sampled = np.zeros((1, maxlen, len(chars)))
             for t, char in enumerate(generated_text):
                 sampled[0, t, char_indexes[char]] = 1.
