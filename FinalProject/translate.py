@@ -1,14 +1,12 @@
 from keras import layers
-from keras.preprocessing.text import Tokenizer
-from keras.preprocessing.text import text_to_word_sequence
 import keras
 import numpy as np
 import random
 import sys
 
-text_initial = open("Scripts/newComedy.txt", "r").read()
+text = open("Scripts/oneLiners.txt", "r").read().lower()
 
-maxlen = 50
+maxlen = 60
 
 step = 3
 
@@ -16,36 +14,30 @@ sentences = []
 
 next_chars = []
 
-tokenizer = Tokenizer(num_words=10000, split=' ')
-tokenizer.fit_on_texts(text_initial)
-sequences = text_to_word_sequence(text_initial)
-
-for i in range(0, len(sequences) - maxlen, step):
-    sentences.append(sequences[i: i + maxlen])
-    next_chars.append(sequences[i + maxlen])
+for i in range(0, len(text) - maxlen, step):
+    sentences.append(text[i: i + maxlen])
+    next_chars.append(text[i + maxlen])
 print('Number of sequences:', len(sentences))
 
-words = sorted(list(sequences))
-words = list(dict.fromkeys(words))
-print('Unique shit:', words)
+chars = sorted(list(set(text)))
+print('Unique Characters:', len(chars))
 
-word_indices = dict((char, words.index(char)) for char in words)
+char_indices = dict((char, chars.index(char)) for char in chars)
 
 
 print('Vectorization...')
-x = np.zeros((len(sentences), maxlen, len(words)), dtype=np.bool)
-y = np.zeros((len(sentences), len(words)), dtype=np.bool)
+x = np.zeros((len(sentences), maxlen, len(chars)), dtype=np.bool)
+y = np.zeros((len(sentences), len(chars)), dtype=np.bool)
 for i, sentence in enumerate(sentences):
     for t, char in enumerate(sentence):
-        x[i, t, word_indices[char]] = 1
-    y[i, word_indices[next_chars[i]]] = 1
+        x[i, t, char_indices[char]] = 1
+    y[i, char_indices[next_chars[i]]] = 1
 
 model = keras.models.Sequential()
-model.add(layers.LSTM(128, input_shape=(maxlen, len(words))))
-model.add(layers.Dense(len(words), activation='softmax'))
-model.add(layers.Dense(len(words), activation='softmax'))
+model.add(layers.LSTM(128, input_shape=(maxlen, len(chars))))
+model.add(layers.Dense(len(chars), activation='softmax'))
 
-optimizer = keras.optimizers.RMSprop(lr=0.1, clipnorm=1.)
+optimizer = keras.optimizers.RMSprop(lr=0.01, clipnorm=1.)
 model.compile(loss='categorical_crossentropy', optimizer=optimizer)
 
 def sample(preds, temperature=1.0):
@@ -60,32 +52,31 @@ for epoch in range(1, 60):
     print('epoch', epoch)
     # Fit the model for 1 epoch on the available training data
     model.fit(x, y,
-              batch_size=128,
+              batch_size=32,
               epochs=1)
 
     # Select a text seed at random
-    start_index = random.randint(0, len(sequences) - maxlen - 1)
-    generated_text = sequences[start_index: start_index + maxlen]
-    print('--- Generating with seed: "', generated_text, '"')
+    start_index = random.randint(0, len(text) - maxlen - 1)
+    generated_text = text[start_index: start_index + maxlen]
+    print('--- Generating with seed: "' + generated_text + '"')
 
-    for temperature in [1.0, 1.2]:
+    for temperature in [0.2, 0.5, 0.75, 1.0]:
         print('------ temperature:', temperature)
-        print(generated_text)
+        sys.stdout.write(generated_text)
 
         # We generate 400 characters
-        for i in range(400):
-            sampled = np.zeros((1, maxlen, len(words)))
+        for i in range(500):
+            sampled = np.zeros((1, maxlen, len(chars)))
             for t, char in enumerate(generated_text):
-                sampled[0, t, word_indices[char]] = 1.
+                sampled[0, t, char_indices[char]] = 1.
 
             preds = model.predict(sampled, verbose=0)[0]
             next_index = sample(preds, temperature)
-            next_char = words[next_index]
+            next_char = chars[next_index]
 
             generated_text += next_char
             generated_text = generated_text[1:]
 
-
-            print(next_char)
-
+            sys.stdout.write(next_char)
+            sys.stdout.flush()
         print()
